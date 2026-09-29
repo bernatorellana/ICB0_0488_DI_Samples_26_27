@@ -33,11 +33,11 @@
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row="0" Grid.Column="0">NIF</Label>
-                    <TextBox Grid.Row="0" Grid.Column="1"/>
+                    <TextBox x:Name="txtNIF" Grid.Row="0" Grid.Column="1"/>
                     <Label Grid.Row="1" Grid.Column="0">Nom</Label>
-                    <TextBox Grid.Row="1" Grid.Column="1"/>
+                    <TextBox x:Name="txtNom" Grid.Row="1" Grid.Column="1"/>
                     <Label Grid.Row="2" Grid.Column="0">Cognom</Label>
-                    <TextBox Grid.Row="2" Grid.Column="1"/>
+                    <TextBox x:Name="txtCognom" Grid.Row="2" Grid.Column="1"/>
 
                 </Grid>
             </Border>
@@ -46,23 +46,23 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" HorizontalAlignment="Center">New</Button>
-                <Button Grid.Column="1" HorizontalAlignment="Center">Save</Button>
+                <Button x:Name="btnNew" Grid.Column="0" HorizontalAlignment="Center">New</Button>
+                <Button x:Name="btnSave"  Grid.Column="1" HorizontalAlignment="Center">Save</Button>
             </Grid>
         </StackPanel>
         <!--===================== COLUMNA 2 ============================ -->
         <StackPanel Grid.Column="1" VerticalAlignment="Stretch" >
             <Label>Persones</Label>
-            <ListView VerticalAlignment="Stretch" Background="red"></ListView>
+            <ListView  x:Name="lsvPersones" VerticalAlignment="Stretch" Background="red"></ListView>
         </StackPanel>
         <!--===================== COLUMNA 3 ============================ -->
-        <Button Grid.Column="2" VerticalAlignment="Center" FontFamily="Segoe MDL2 Assets" Margin="10" Content="&#xE970;"></Button>
+        <Button x:Name="btnMove" Grid.Column="2" VerticalAlignment="Center" FontFamily="Segoe MDL2 Assets" Margin="10" Content="&#xE970;"></Button>
         <!--===================== COLUMNA 4 ============================ -->
         <StackPanel Grid.Column="3" VerticalAlignment="Stretch" >
             <Label>Equip</Label>
-            <ComboBox Margin="10"></ComboBox>
+            <ComboBox  x:Name="cboEquips" Margin="10"></ComboBox>
             <Label>Jugadors</Label>
-            <ListView Margin="10" VerticalAlignment="Stretch" Background="red"></ListView>
+            <ListView  x:Name="lsvJugadors" Margin="10" VerticalAlignment="Stretch" Background="red"></ListView>
         </StackPanel>
     </Grid>
 </Window>
