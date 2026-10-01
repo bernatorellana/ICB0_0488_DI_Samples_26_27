@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace DiccionarisApp.model
 {
-    public class Persona
+    public class Persona : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         private String nif;
         private String nom;
         private String cognoms;
@@ -17,7 +20,11 @@ namespace DiccionarisApp.model
             Cognoms = cognoms;
         }
 
-        public string NIF { get => nif; set => nif = value; }
+        public string NIF { get => nif; set { 
+                nif = value;
+                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("NIF"));
+            } 
+        }
         public string Nom { get => nom; set => nom = value; }
         public string Cognoms { get => cognoms; set => cognoms = value; }
 

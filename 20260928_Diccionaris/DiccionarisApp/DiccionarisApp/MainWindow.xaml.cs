@@ -45,6 +45,14 @@ namespace DiccionarisApp
                     btnNew.Visibility = Visibility.Hidden;
                     btnSave.Visibility = Visibility.Visible;
                     btnCancel.Visibility = Visibility.Visible;
+
+                    txtCognom.Clear();
+                    txtNom.Clear();
+                    txtNIF.Clear();
+
+
+                    lsvPersones.SelectedItem = null;
+
                     break;
                 case ESTAT.EDICIO:
                     btnNew.Visibility = Visibility.Visible;
@@ -94,18 +102,64 @@ namespace DiccionarisApp
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            bool isOk = validaFormPersona();
+
             if (Estat == ESTAT.NOU)
             {
-                bool isOk =     txtNIF.Text.Length == 8 && 
-                                txtNom.Text.Length >= 2 && 
-                                txtCognom.Text.Length >= 4;
-
                 if (isOk)
                 {
                     Persona nova = new Persona(txtNIF.Text, txtNom.Text, txtCognom.Text);
                     persones.Add(nova);
+
+                    Estat = ESTAT.NOU;
                 }
             }
+            else if (Estat == ESTAT.EDICIO)
+            {
+                Persona seleccionada = lsvPersones.SelectedItem as Persona;
+                if (seleccionada != null && isOk)
+                {
+                    seleccionada.NIF = txtNIF.Text;
+                    seleccionada.Nom = txtNom.Text;
+                    seleccionada.Cognoms = txtCognom.Text;
+                    //Estat = ESTAT.NOU;
+                }
+            }
+        }
+        private bool validaFormPersona()
+        {
+            // TODO : validacions pendents de millora
+            return txtNIF.Text.Length == 8 &&
+                                           txtNom.Text.Length >= 2 &&
+                                           txtCognom.Text.Length >= 4;
+        }
+
+        private void lsvPersones_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MostrarPersonaSeleccionada();
+
+        }
+
+        private void MostrarPersonaSeleccionada()
+        {
+            Persona seleccionada = lsvPersones.SelectedItem as Persona;
+            if (seleccionada != null)
+            {
+                txtNIF.Text = seleccionada.NIF;
+                txtNom.Text = seleccionada.Nom;
+                txtCognom.Text = seleccionada.Cognoms;
+                Estat = ESTAT.EDICIO;
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            MostrarPersonaSeleccionada();
+        }
+
+        private void btnNew_Click(object sender, RoutedEventArgs e)
+        {
+            Estat = ESTAT.NOU;
         }
     }
 }

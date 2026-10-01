@@ -48,15 +48,37 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btnCancel" Grid.Column="0" HorizontalAlignment="Center">Cancel</Button>
-                <Button x:Name="btnNew" Grid.Column="1" HorizontalAlignment="Center">New</Button>
+                <Button x:Name="btnCancel" Click="btnCancel_Click" Grid.Column="0" HorizontalAlignment="Center">Cancel</Button>
+                <Button x:Name="btnNew" Click="btnNew_Click" Grid.Column="1" HorizontalAlignment="Center">New</Button>
                 <Button x:Name="btnSave" Click="btnSave_Click" Grid.Column="2" HorizontalAlignment="Center">Save</Button>
             </Grid>
         </StackPanel>
         <!--===================== COLUMNA 2 ============================ -->
         <StackPanel Grid.Column="1" VerticalAlignment="Stretch" >
             <Label>Persones</Label>
-            <ListView  x:Name="lsvPersones" VerticalAlignment="Stretch" Background="red"></ListView>
+            <ListView Height="100" SelectionChanged="lsvPersones_SelectionChanged" 
+                      x:Name="lsvPersones" VerticalAlignment="Stretch">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"></ColumnDefinition>
+                                <ColumnDefinition Width="60"></ColumnDefinition>
+                                <ColumnDefinition Width="60"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0" Content="{Binding NIF}"></Label>
+                            <Label Grid.Column="1" Content="{Binding Nom}"></Label>
+                            <Label Grid.Column="2" Content="{Binding Cognoms}"></Label>
+                            
+                        </Grid>
+                        
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                
+            </ListView>
         </StackPanel>
         <!--===================== COLUMNA 3 ============================ -->
         <Button x:Name="btnMove" Grid.Column="2" VerticalAlignment="Center" FontFamily="Segoe MDL2 Assets" Margin="10" Content="&#xE970;"></Button>
