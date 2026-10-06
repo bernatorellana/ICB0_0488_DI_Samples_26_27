@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +20,11 @@ namespace DiccionarisApp
     /// </summary>
     public partial class MainWindow : Window
     {
+
+
+        private ObservableCollection<Persona> persones = new ObservableCollection<Persona>();
+        private Dictionary<Equip, ObservableCollection<Persona>> equips = new Dictionary<Equip, ObservableCollection<Persona>>();
+
 
         private enum ESTAT
         {
@@ -63,31 +69,34 @@ namespace DiccionarisApp
             }
         }
 
-        private ObservableCollection<Persona> persones = new ObservableCollection<Persona>();
 
-   
 
         public MainWindow()
         {
             InitializeComponent();
-            //          
-            //Dictionary<String, Persona> personesPerNom =
-            //    new Dictionary<String, Persona>();
-
-            //Persona maria = new Persona("11111111H", "Maria", "Pérez Sánchez");
-            //personesPerNom.Add("MARIA", maria);
-            //personesPerNom["MARIA"] = maria;
-            //personesPerNom["MARIA3"] = maria;
-
-            //Persona buscada = personesPerNom["MARIA"];
-            //Debug.WriteLine("Persona trobada:" + buscada);
-
-            //if (personesPerNom.ContainsKey("MARIA3"))
-            //{
-            //    buscada = personesPerNom["MARIA3"];
-            //}
-
+            //exempleDiccionaris();
             
+        }
+
+        private void exempleDiccionaris()
+        {
+
+            Dictionary<String, Persona> personesPerNom =
+                new Dictionary<String, Persona>();
+
+            Persona maria = new Persona("11111111H", "Maria", "Pérez Sánchez");
+            personesPerNom.Add("MARIA", maria);
+            personesPerNom["MARIA"] = maria;
+            personesPerNom["MARIA3"] = maria;
+
+            Persona buscada = personesPerNom["MARIA"];
+            Debug.WriteLine("Persona trobada:" + buscada);
+
+            if (personesPerNom.ContainsKey("MARIA3"))
+            {
+                buscada = personesPerNom["MARIA3"];
+            }
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -96,6 +105,14 @@ namespace DiccionarisApp
             cboEquips.DisplayMemberPath = "Nom";
 
             lsvPersones.ItemsSource = persones;
+
+
+            //inicialitzar el diccionari d'equips
+            foreach(Equip eq in Equip.GetEquips())
+            {
+                ObservableCollection<Persona> jugadorsDeLequip = new ObservableCollection<Persona>();
+                equips[eq] = jugadorsDeLequip;
+            }
 
             Estat = ESTAT.NOU;
         }
@@ -128,10 +145,44 @@ namespace DiccionarisApp
         }
         private bool validaFormPersona()
         {
-            // TODO : validacions pendents de millora
-            return txtNIF.Text.Length == 8 &&
-                                           txtNom.Text.Length >= 2 &&
-                                           txtCognom.Text.Length >= 4;
+            return validaNIF() &&
+                    validaNom() &&
+                    validaCognom() &&
+                    validaNIFNoRepetit();
+        }
+
+        private bool validaNIFNoRepetit()
+        {
+            //foreach(Persona p in persones)
+            //{
+            //    if (p.NIF.Equals(txtNIF.Text)) return false;
+            //}
+            //return true;
+
+            Persona? p = persones.SingleOrDefault(x => x.NIF.Equals(txtNIF.Text));
+            bool valid = p == null;
+
+            if (!valid) MessageBox.Show("No s'admenten NIFs repetits", "ERROR",
+                MessageBoxButton.OK, MessageBoxImage.Error);
+
+            return valid;
+            
+        }
+
+        private bool validaCognom()
+        {
+            return txtCognom.Text.Length >= 4;
+        }
+
+        private bool validaNom()
+        {
+            return txtNom.Text.Length >= 2;
+        }
+
+        private bool validaNIF()
+        {
+            Regex r = new Regex("[0-9]{8}[A-Z]");
+            return r.Match(txtNIF.Text).Success;
         }
 
         private void lsvPersones_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -160,6 +211,38 @@ namespace DiccionarisApp
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
             Estat = ESTAT.NOU;
+        }
+
+        private void btnMove_Click(object sender, RoutedEventArgs e)
+        {
+            Persona personaSelecionada = lsvPersones.SelectedItem as Persona;
+            Equip equipSeleccionat = cboEquips.SelectedItem as Equip;
+
+            if (equipSeleccionat!=null && personaSelecionada != null)
+            {
+
+                foreach(ObservableCollection<Persona> jugs in equips.Values)
+                {
+                    if (jugs.Remove(personaSelecionada)) break;
+                }
+
+
+                ObservableCollection<Persona> jugadors = equips[equipSeleccionat];
+                if (!jugadors.Contains(personaSelecionada))
+                {
+                    jugadors.Add(personaSelecionada);
+                }
+            }
+        }
+
+        private void cboEquips_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cboEquips.SelectedItem != null)
+            {
+                Equip equipSeleccionat = cboEquips.SelectedItem as Equip;
+                ObservableCollection<Persona> jugadors = equips[equipSeleccionat];
+                lsvJugadors.ItemsSource = jugadors;
+            }
         }
     }
 }

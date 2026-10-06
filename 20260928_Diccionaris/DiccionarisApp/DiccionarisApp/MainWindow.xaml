@@ -81,11 +81,11 @@
             </ListView>
         </StackPanel>
         <!--===================== COLUMNA 3 ============================ -->
-        <Button x:Name="btnMove" Grid.Column="2" VerticalAlignment="Center" FontFamily="Segoe MDL2 Assets" Margin="10" Content="&#xE970;"></Button>
+        <Button x:Name="btnMove" Click="btnMove_Click" Grid.Column="2" VerticalAlignment="Center" FontFamily="Segoe MDL2 Assets" Margin="10" Content="&#xE970;"></Button>
         <!--===================== COLUMNA 4 ============================ -->
         <StackPanel Grid.Column="3" VerticalAlignment="Stretch" >
             <Label>Equip</Label>
-            <ComboBox  x:Name="cboEquips" Margin="10"></ComboBox>
+            <ComboBox  x:Name="cboEquips" Margin="10" SelectionChanged="cboEquips_SelectionChanged"></ComboBox>
             <Label>Jugadors</Label>
             <ListView  x:Name="lsvJugadors" Margin="10" VerticalAlignment="Stretch" Background="red"></ListView>
         </StackPanel>
