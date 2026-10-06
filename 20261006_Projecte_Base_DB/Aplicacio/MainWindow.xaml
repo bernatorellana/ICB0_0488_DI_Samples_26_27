@@ -1,0 +1,53 @@
+﻿<Window x:Class="Aplicacio.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Aplicacio"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        x:Name="mainWindow"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Àrea de filtres -->
+
+        <GroupBox
+            Background="#f0f0f0"
+            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Header="FILTRE" Margin="5" Padding="10">
+       
+            
+
+
+        </GroupBox>
+        <!-- Graella de clients -->
+        <DataGrid x:Name="dtgClients" Grid.Column="0" Grid.Row="1" AutoGenerateColumns="true" >
+           
+        </DataGrid>
+
+        <!-- Formulari de client -->
+        <Grid Grid.Column="1"  Grid.Row="1" >
+ 
+
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button x:Name="btnBack"  Margin="10">BACK</Button>
+            <TextBox x:Name="txtPagina" Text="{Binding ElementName=mainWindow, Path=Pagina}"
+                     VerticalAlignment="Center"
+                     ></TextBox>
+            <Button x:Name="btnNext" Margin="10">NEXT</Button>
+        </StackPanel>
+        
+    </Grid>
+</Window>

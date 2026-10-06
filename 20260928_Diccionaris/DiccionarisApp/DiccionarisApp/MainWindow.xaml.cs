@@ -244,5 +244,80 @@ namespace DiccionarisApp
                 lsvJugadors.ItemsSource = jugadors;
             }
         }
+
+        private void txtNom_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if(!validaNom())
+            {
+                txtNom.Background = new SolidColorBrush(Color.FromRgb(255,200,200));
+            } else
+            {
+                txtNom.Background = Brushes.White;
+            }
+        }
+
+        private void txtCognom_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (!validaCognom())
+            {
+                txtCognom.Background = new SolidColorBrush(Color.FromRgb(255, 200, 200));
+            }
+            else
+            {
+                txtCognom.Background = Brushes.White;
+            }
+        }
+
+        private void txtNom_GotFocus(object sender, RoutedEventArgs e)
+        {
+            txtNom.Background = Brushes.White;
+        }
+
+        private void txtCognom_GotFocus(object sender, RoutedEventArgs e)
+        {
+            txtCognom.Background = Brushes.White;
+        }
+
+
+
+        private void txtNIF_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+
+            string nomTecla = e.Key.ToString();
+            char ultimaLletra = nomTecla.Last();
+            bool esDigit = Char.IsDigit(ultimaLletra);
+            bool esLletra = e.Key.ToString().Length == 1 &&
+                "TRWAGMYFPDXBNJZSQVHLCKE".IndexOf(e.Key.ToString()) >= 0;
+
+
+            bool esCursor =        e.Key == Key.Back 
+                                || e.Key == Key.Delete 
+                                || e.Key == Key.Up
+                                || e.Key == Key.Down
+                                || e.Key == Key.Left
+                                || e.Key == Key.Right
+                                || e.Key == Key.Tab
+                    ;
+
+            if (esCursor) return;
+            if(txtNIF.SelectionStart < 8)
+            {
+                e.Handled = !esDigit;
+            }
+            else if (txtNIF.SelectionStart == 8)
+            {
+                e.Handled = !esLletra;
+            } else
+            {
+                e.Handled = true;
+            }
+
+            //if (!esCursor && txtNIF.SelectionStart < 8?!esDigit: !esLletra)
+            //{
+            //    e.Handled = true;
+            //}
+        }
+
+ 
     }
 }

@@ -34,11 +34,11 @@
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row="0" Grid.Column="0">NIF</Label>
-                    <TextBox x:Name="txtNIF" Grid.Row="0" Grid.Column="1"/>
+                    <TextBox x:Name="txtNIF" Grid.Row="0" Grid.Column="1" PreviewKeyDown="txtNIF_PreviewKeyDown" />
                     <Label Grid.Row="1" Grid.Column="0">Nom</Label>
-                    <TextBox x:Name="txtNom" Grid.Row="1" Grid.Column="1"/>
+                    <TextBox x:Name="txtNom" Grid.Row="1" Grid.Column="1"  LostFocus="txtNom_LostFocus" GotFocus="txtNom_GotFocus"/>
                     <Label Grid.Row="2" Grid.Column="0">Cognom</Label>
-                    <TextBox x:Name="txtCognom" Grid.Row="2" Grid.Column="1"/>
+                    <TextBox x:Name="txtCognom" Grid.Row="2" Grid.Column="1" LostFocus="txtCognom_LostFocus" GotFocus="txtCognom_GotFocus"/>
 
                 </Grid>
             </Border>
