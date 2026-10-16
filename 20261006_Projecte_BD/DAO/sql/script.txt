@@ -1,0 +1,68 @@
+DROP TABLE IF EXISTS Client;
+DROP TABLE IF EXISTS Provincia;
+
+
+-- ===========================================
+-- Taula: Provincia
+-- ===========================================
+CREATE TABLE Provincia (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL
+);
+
+-- ===========================================
+-- Taula: Client
+-- ===========================================
+CREATE TABLE Client (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    CIF VARCHAR(20) NOT NULL UNIQUE,
+    raoSocial VARCHAR(150) NOT NULL,
+    esActiva BOOLEAN NOT NULL DEFAULT TRUE,
+    tipus INT,
+    provincia_id INT,
+		imatge_url VARCHAR(255),
+    CONSTRAINT fk_client_provincia FOREIGN KEY (provincia_id)
+        REFERENCES Provincia(id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
+);
+
+-- Opcional: índexs addicionals per millorar el rendiment de consultes
+CREATE INDEX idx_client_provincia ON Client(provincia_id);
+
+
+-- ===========================================
+-- Dades de demostració per a Provincia
+-- ===========================================
+INSERT INTO Provincia (nom) VALUES
+('Barcelona'),
+('Girona'),
+('Tarragona'),
+('Lleida');
+
+-- ===========================================
+-- Dades de demostració per a Client
+-- ===========================================
+INSERT INTO Client (CIF, raoSocial, esActiva, tipus, provincia_id, imatge_url) VALUES
+('A12345678', 'TechNova SL', TRUE, 1, 1, 'https://picsum.photos/id/1011/200/200'),
+('B87654321', 'Agrocat SA', TRUE, 2, 4, 'https://picsum.photos/id/1027/200/200'),
+('C23456789', 'Construccions Delta SL', TRUE, 3, 3, 'https://picsum.photos/id/1032/200/200'),
+('D98765432', 'Distribucions Costa Brava SL', TRUE, 4, 2, 'https://picsum.photos/id/1041/200/200'),
+('E34567890', 'Innova Consultors', TRUE, 1, 1, 'https://picsum.photos/id/1052/200/200'),
+('F45678901', 'Serveis Logístics Pirineu', FALSE, 2, 4, 'https://picsum.photos/id/1062/200/200'),
+('G56789012', 'EnerGreen SA', TRUE, 3, 1, 'https://picsum.photos/id/1074/200/200'),
+('H67890123', 'Vins i Caves Empordà', TRUE, 4, 2, 'https://picsum.photos/id/1084/200/200'),
+('I78901234', 'TecnoGlobal SL', TRUE, 1, 3, 'https://picsum.photos/id/109/200/200'),
+('J89012345', 'Aliments del Camp SA', FALSE, 2, 4, 'https://picsum.photos/id/110/200/200'),
+('K90123456', 'Fusteria Modernista', TRUE, 3, 1, 'https://picsum.photos/id/111/200/200'),
+('L01234567', 'AutoParts Catalunya SL', TRUE, 4, 3, 'https://picsum.photos/id/112/200/200'),
+('M12345000', 'BioFarma SA', TRUE, 1, 1, 'https://picsum.photos/id/113/200/200'),
+('N23456000', 'Construccions Lleida SL', TRUE, 2, 4, 'https://picsum.photos/id/114/200/200'),
+('O34567000', 'EcoTransports SL', TRUE, 3, 3, 'https://picsum.photos/id/115/200/200'),
+('P45678000', 'ArtDigital SL', FALSE, 4, 2, 'https://picsum.photos/id/116/200/200'),
+('Q56789000', 'Gestoria Central SL', TRUE, 1, 1, 'https://picsum.photos/id/117/200/200'),
+('R67890000', 'Hotel Mediterrani', TRUE, 2, 3, 'https://picsum.photos/id/118/200/200'),
+('S78901000', 'Serveis Tècnics Girona', TRUE, 3, 2, 'https://picsum.photos/id/119/200/200'),
+('T89012000', 'Tarraco Solutions', TRUE, 4, 3, 'https://picsum.photos/id/120/200/200');
+
+

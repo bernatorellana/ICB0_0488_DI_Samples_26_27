@@ -32,7 +32,7 @@ namespace DAO
         public Client GetClient(int id)
         {
             ObservableCollection<Client> clients =
-                GetClients("" + id, "");
+                GetClients("" + id, "", "");
             if (clients.Count == 0) return null;
             else return clients[0];
         }
@@ -73,7 +73,8 @@ namespace DAO
 
         }
 
-        public ObservableCollection<Client> GetClients(string id_filtre, string rao_social_filtre, int offset = 0, int rows_per_page = -1)
+        public ObservableCollection<Client> GetClients(string id_filtre, string rao_social_filtre, string NIF,
+                        int offset = 0, int rows_per_page = -1)
         {
             ObservableCollection<Client> resultat = new ObservableCollection<Client>();
 
@@ -88,12 +89,16 @@ namespace DAO
             using (var consulta = connexio.CreateCommand())
             {
 
+                
+
                 // query SQL
                 consulta.CommandText =
                     @"select * from client 
                                 where 
                                 ( @ID_TEXT=-1 OR id = @ID_TEXT ) AND  					   
-                                ( @RAO_SOCIAL_TEXT='%%' OR raoSocial like @RAO_SOCIAL_TEXT)";
+                                ( @RAO_SOCIAL_TEXT='%%' OR raoSocial like @RAO_SOCIAL_TEXT) AND
+                                ( @NIF_TEXT='' OR CIF=@NIF_TEXT )
+                ";
 
                 if (rows_per_page > 0)
                 {
@@ -108,6 +113,7 @@ namespace DAO
 
                 Utils.CrearParametre(consulta, id_filtre_int, "ID_TEXT", System.Data.DbType.Int32);
                 Utils.CrearParametre(consulta, "%" + rao_social_filtre + "%", "RAO_SOCIAL_TEXT", System.Data.DbType.String);
+                Utils.CrearParametre(consulta, NIF, "NIF_TEXT", System.Data.DbType.String);
 
 
 
@@ -127,6 +133,8 @@ namespace DAO
                         int tipus = reader.GetInt32(reader.GetOrdinal("tipus"));
                         int provincia_id = reader.GetInt32(reader.GetOrdinal("provincia_id"));
 
+
+                        
                         // Atenció ! Aquest camp pot ser NULL :-X
                         string imatge_url = "";
                         if (!reader.IsDBNull(reader.GetOrdinal("imatge_url")))
@@ -135,7 +143,9 @@ namespace DAO
                         }
 
                         Client c = new Client(id, CIF, raoSocial, esActiva, (TipusEmpresa)tipus,
-                            Provincia.GetProvincies().Where(x => x.Id == provincia_id).First());
+                                        Provincia.GetProvincies().Where(x => x.Id == provincia_id).First(),
+                                        imatge_url);
+
 
                         resultat.Add(c);
                     }

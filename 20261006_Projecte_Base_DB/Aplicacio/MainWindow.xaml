@@ -8,6 +8,7 @@
         Loaded="Window_Loaded"
         x:Name="mainWindow"
         Title="MainWindow" Height="450" Width="800">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -43,7 +44,7 @@
 
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button x:Name="btnBack"  Margin="10">BACK</Button>
-            <TextBox x:Name="txtPagina" Text="{Binding ElementName=mainWindow, Path=Pagina}"
+            <TextBox x:Name="txtPagina" 
                      VerticalAlignment="Center"
                      ></TextBox>
             <Button x:Name="btnNext" Margin="10">NEXT</Button>

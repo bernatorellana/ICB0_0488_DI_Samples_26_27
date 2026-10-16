@@ -36,7 +36,7 @@ namespace Aplicacio
             MySQLFactory.getUOW(uow =>
             {
                 IDAOClient dao = uow.DAOClients;
-                clientsActuals = dao.GetClients("",""); 
+                clientsActuals = dao.GetClients("","", ""); 
                 numeroClients = dao.GetNumeroClients("","");
             });
 

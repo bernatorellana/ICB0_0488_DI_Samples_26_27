@@ -24,7 +24,13 @@ namespace _20251001_Controls_Senders.model
         private Dictionary<String, bool> opcions = 
             new Dictionary<String, bool>();
 
-        public Client(int id, string cIF, string raoSocial, bool esActiva, TipusEmpresa tipus, Provincia provincia)
+        public Client(int id, string cIF, 
+            string raoSocial, 
+            bool esActiva, 
+            TipusEmpresa tipus, 
+            Provincia provincia,
+            String imatgeUrl = ""
+            )
         {
             this.Id = id;
             CIF1 = cIF;
@@ -32,6 +38,7 @@ namespace _20251001_Controls_Senders.model
             this.EsActiva = esActiva;
             this.Tipus = tipus;
             this.Provincia = provincia;
+            this.imatgeUrl = imatgeUrl;
         }
 
         #region Properties
