@@ -5,13 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Aplicacio"
         mc:Ignorable="d"
-        Title="WindowProvincies" Height="450" Width="800"
+        Title="WindowProvincies" Height="548" Width="883"
         Loaded="Window_Loaded"
         >
     <Grid>
-        
-        
-        
-        <DataGrid x:Name="dtgProvincies"></DataGrid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Row="0" Margin="10" 
+                  Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions    >
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">Id</Label>
+                <Label HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0">Nom</Label>
+                <TextBox  Grid.Row="0" Grid.Column="1" x:Name="txtId"></TextBox>
+                <TextBox  Grid.Row="1" Grid.Column="1" x:Name="txtNom" Margin="0,5,0,0"></TextBox>
+                <Button Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" Padding="30,10,30,10" x:Name="btnFiltrarClean">Clean</Button>
+                <Button Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Padding="30,10,30,10" x:Name="btnFiltrar">Filtrar</Button>
+
+            </Grid>
+
+        </GroupBox>
+
+        <DataGrid Grid.Row="1" x:Name="dtgProvincies"></DataGrid>
+
+        <Grid Grid.Row="2" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label  HorizontalAlignment="Right" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0">Nom</Label>
+            <TextBox Grid.Column="2" Grid.Row="0" Margin="5" x:Name="txtNomEdicio"></TextBox>
+            <Button HorizontalAlignment="Center" Padding="30,10,30,10" Grid.Column="0" Grid.Row="1" x:Name="btnEliminar" >Eliminar</Button>
+            <Button HorizontalAlignment="Center" Padding="30,10,30,10" Grid.Column="1" Grid.Row="1" x:Name="btnDesar" >Desar</Button>
+            <Button HorizontalAlignment="Center" Padding="30,10,30,10" Grid.Column="2" Grid.Row="1" x:Name="btnNou" >Nou</Button>
+        </Grid>
+
     </Grid>
 </Window>
