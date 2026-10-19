@@ -73,7 +73,11 @@ namespace DAO
 
         }
 
-        public ObservableCollection<Client> GetClients(string id_filtre, string rao_social_filtre, string NIF,
+        public ObservableCollection<Client> GetClients(
+                                                    string id_filtre ="", 
+                                                    string rao_social_filtre ="", 
+                                                    string NIF = "",
+                                                    int idProvincia = -1,
                         int offset = 0, int rows_per_page = -1)
         {
             ObservableCollection<Client> resultat = new ObservableCollection<Client>();
@@ -95,7 +99,8 @@ namespace DAO
                 consulta.CommandText =
                     @"select * from client 
                                 where 
-                                ( @ID_TEXT=-1 OR id = @ID_TEXT ) AND  					   
+                                ( @ID_TEXT=-1 OR id = @ID_TEXT ) AND  
+                                ( @PROVINCIA_ID=-1 OR provincia_id = @PROVINCIA_ID ) AND 
                                 ( @RAO_SOCIAL_TEXT='%%' OR raoSocial like @RAO_SOCIAL_TEXT) AND
                                 ( @NIF_TEXT='' OR CIF=@NIF_TEXT )
                 ";
@@ -112,6 +117,7 @@ namespace DAO
                 }
 
                 Utils.CrearParametre(consulta, id_filtre_int, "ID_TEXT", System.Data.DbType.Int32);
+                Utils.CrearParametre(consulta, idProvincia, "PROVINCIA_ID", System.Data.DbType.Int32);
                 Utils.CrearParametre(consulta, "%" + rao_social_filtre + "%", "RAO_SOCIAL_TEXT", System.Data.DbType.String);
                 Utils.CrearParametre(consulta, NIF, "NIF_TEXT", System.Data.DbType.String);
 
@@ -143,7 +149,7 @@ namespace DAO
                         }
 
                         Client c = new Client(id, CIF, raoSocial, esActiva, (TipusEmpresa)tipus,
-                                        Provincia.GetProvincies().Where(x => x.Id == provincia_id).First(),
+                                        null/*Provincia.GetProvincies().Where(x => x.Id == provincia_id).First()*/,
                                         imatge_url);
 
 
