@@ -118,7 +118,22 @@ namespace Aplicacio
                     uow.Commit();
                 });
                 ferLlistat();
+            } else {
+                MySQLFactory.getUOW(uow =>
+                {
+                    IDAOProvincia dao_prov = uow.DAOProvincies;
+                    dao_prov.InsertProvincia(new Provincia(-1, txtNomEdicio.Text));
+                    uow.Commit();
+                });
+                ferLlistat();
             }
+        }
+
+        private void btnNou_Click(object sender, RoutedEventArgs e)
+        {            
+            dtgProvincies.SelectedItem = null;
+            txtNomEdicio.Text = "";
+
         }
     }
 }
