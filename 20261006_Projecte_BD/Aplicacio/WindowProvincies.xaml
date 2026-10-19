@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Aplicacio"
         mc:Ignorable="d"
-        Title="WindowProvincies" Height="548" Width="883"
+        Title="WindowProvincies" MinHeight="637" MinWidth="758"
+        MaxHeight="637" MaxWidth="758"
         Loaded="Window_Loaded"
         >
-    <Grid>
+    <Grid Background="LightYellow">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
@@ -16,7 +17,8 @@
         </Grid.RowDefinitions>
 
         <GroupBox Grid.Row="0" Margin="10" 
-                  Padding="10">
+                  Padding="10"
+                  Background="White">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -31,8 +33,8 @@
 
                 <Label HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">Id</Label>
                 <Label HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0">Nom</Label>
-                <TextBox  Grid.Row="0" Grid.Column="1" x:Name="txtId"></TextBox>
-                <TextBox  Grid.Row="1" Grid.Column="1" x:Name="txtNom" Margin="0,5,0,0"></TextBox>
+                <TextBox Padding="5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" x:Name="txtId"></TextBox>
+                <TextBox Padding="5" VerticalAlignment="Center"  Grid.Row="1" Grid.Column="1" x:Name="txtNom" Margin="0,5,0,0"></TextBox>
                 <Button Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" Padding="30,10,30,10" x:Name="btnFiltrarClean" Click="btnFiltrarClean_Click">Clean</Button>
                 <Button Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Padding="30,10,30,10" x:Name="btnFiltrar" Click="btnFiltrar_Click">Filtrar</Button>
 
@@ -47,7 +49,7 @@
         <Grid Grid.Row="2" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -56,7 +58,7 @@
             </Grid.ColumnDefinitions>
 
             <Label  HorizontalAlignment="Right" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0">Nom</Label>
-            <TextBox Grid.Column="2" Grid.Row="0" Margin="5" x:Name="txtNomEdicio"></TextBox>
+            <TextBox Padding="5" VerticalAlignment="Center" Grid.Column="2" Grid.Row="0" Margin="5" x:Name="txtNomEdicio"></TextBox>
             <Button Click="btnEliminar_Click" HorizontalAlignment="Center" Padding="30,10,30,10" Grid.Column="0" Grid.Row="1" x:Name="btnEliminar" >Eliminar</Button>
             <Button Click="btnDesar_Click" HorizontalAlignment="Center" Padding="30,10,30,10" Grid.Column="1" Grid.Row="1" x:Name="btnDesar" >Desar</Button>
             <Button HorizontalAlignment="Center" Padding="30,10,30,10" Grid.Column="2" Grid.Row="1" x:Name="btnNou" >Nou</Button>
