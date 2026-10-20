@@ -21,6 +21,52 @@ namespace Aplicacio
     /// </summary>
     public partial class WindowProvincies : Window
     {
+
+        enum TipusEstat
+        {
+            IDLE,
+            EDICIO,
+            NOU
+        }
+
+        private TipusEstat estat;
+
+        private TipusEstat Estat
+        {
+            get { return estat; }
+            set { 
+                estat = value;
+                switch (estat)
+                {
+                    case TipusEstat.IDLE:
+                        {
+                            txtNomEdicio.Text = "";
+                            btnDesar.IsEnabled = false;
+                            btnNou.IsEnabled = true;
+                            btnEliminar.IsEnabled = false;
+                        }
+                        break;
+                    case TipusEstat.EDICIO:
+                        {
+                            //txtNomEdicio.Text = "";
+                            btnDesar.IsEnabled = true;
+                            btnNou.IsEnabled = false;
+                            btnEliminar.IsEnabled = true;
+                        }
+                        break;
+                    case TipusEstat.NOU:
+                        {
+                            txtNomEdicio.Text = "";
+                            btnDesar.IsEnabled = true;
+                            btnNou.IsEnabled = false;
+                            btnEliminar.IsEnabled = false;
+                        }
+                        break;
+                }
+            }
+        }
+
+
         private ObservableCollection<Provincia> provincies; 
         public WindowProvincies()
         {
@@ -30,6 +76,7 @@ namespace Aplicacio
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ferLlistat();
+            Estat = TipusEstat.IDLE;
         }
 
         private void btnFiltrar_Click(object sender, RoutedEventArgs e)
@@ -85,6 +132,7 @@ namespace Aplicacio
                     }
                 });
                 ferLlistat();
+                Estat = TipusEstat.IDLE;
             }
 
         }
@@ -96,9 +144,11 @@ namespace Aplicacio
             if (actual != null)
             {
                 txtNomEdicio.Text = actual.Nom;
+                Estat = TipusEstat.EDICIO;
             } else
             {
                 txtNomEdicio.Text = "";
+                Estat = TipusEstat.IDLE;
             }
 
         }
@@ -118,6 +168,7 @@ namespace Aplicacio
                     uow.Commit();
                 });
                 ferLlistat();
+                
             } else {
                 MySQLFactory.getUOW(uow =>
                 {
@@ -127,13 +178,13 @@ namespace Aplicacio
                 });
                 ferLlistat();
             }
+            Estat = TipusEstat.IDLE;
         }
 
         private void btnNou_Click(object sender, RoutedEventArgs e)
         {            
             dtgProvincies.SelectedItem = null;
-            txtNomEdicio.Text = "";
-
+            Estat = TipusEstat.NOU;
         }
     }
 }
