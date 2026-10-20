@@ -1,0 +1,45 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"  
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" 
+        >
+    <Grid>
+        <ui:NavigationView
+            x:Name="nav"
+            PaneDisplayMode="LeftFluent"
+            xmlns:pages="clr-namespace:WpfApp1"
+              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
+            <ui:NavigationView.MenuItems>
+                <ui:NavigationViewItem
+                Content="Home"
+                Icon="{ui:SymbolIcon Home24}"
+                TargetPageType="{x:Type pages:HomePage}" />    
+                <ui:NavigationViewItem
+            Content="Data"
+            Icon="{ui:SymbolIcon DataHistogram24}"
+            TargetPageType="{x:Type pages:DataPage}" />
+            <ui:NavigationViewItem
+                Content="Customers"
+                Icon="{ui:SymbolIcon agents24}"
+                x:Name="navCustomers"
+                Click="navCustomers_Click"
+                ></ui:NavigationViewItem>    
+                
+                
+            </ui:NavigationView.MenuItems>
+            <!--<ui:NavigationView.FooterMenuItems>
+                <ui:NavigationViewItem
+            Content="Settings"
+            Icon="{ui:SymbolIcon Settings24}"
+            TargetPageType="{x:Type pages:SettingsPage}" />
+            </ui:NavigationView.FooterMenuItems>-->
+        </ui:NavigationView>
+
+
+    </Grid>
+</Window>
