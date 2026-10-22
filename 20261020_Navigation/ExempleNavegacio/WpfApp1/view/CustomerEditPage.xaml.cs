@@ -10,7 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Wpf.Ui.Controls;
 using WpfApp1.model;
+using WpfApp1.view.utils;
 
 namespace WpfApp1
 {
@@ -24,16 +26,28 @@ namespace WpfApp1
             InitializeComponent();
         }
 
+
+        private Client clientSeleccionat;
+        private List<Client> llistaClients; 
+
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            Client c = (Client)DataContext;
-            txtClient.Text = c.Nom;
+            Dictionary<string, object> param = (Dictionary<string,object>)DataContext;
+
+            clientSeleccionat = (Client) param["client_seleccionat"];
+            llistaClients = (List<Client> ) param["llista_clients"];
+
+            txtClient.Text = clientSeleccionat.Nom;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Client c = (Client)DataContext;
-            c.Nom = txtClient.Text;
+           
+            clientSeleccionat.Nom = txtClient.Text;
+            
+            this.FindAncestor<NavigationView>()?.
+            Navigate(typeof(CustomersPage), llistaClients);
+
         }
     }
 }

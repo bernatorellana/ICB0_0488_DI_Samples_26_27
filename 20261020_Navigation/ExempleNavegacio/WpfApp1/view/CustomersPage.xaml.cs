@@ -34,9 +34,15 @@ namespace WpfApp1
 
         private void lsbClients_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            List<Client> clients = (List<Client>)this.DataContext;
+            Client clientSeleccionat = (Client)lsbClients.SelectedItem;
+
+            Dictionary<string, object> parametres = new Dictionary<string, object>();
+            parametres["llista_clients"] = clients;
+            parametres["client_seleccionat"] = clientSeleccionat;
 
             this.FindAncestor<NavigationView>()?.
-                Navigate(typeof(CustomerEditPage), lsbClients.SelectedItem);
+                Navigate(typeof(CustomerEditPage), parametres);
         }
     }
 }

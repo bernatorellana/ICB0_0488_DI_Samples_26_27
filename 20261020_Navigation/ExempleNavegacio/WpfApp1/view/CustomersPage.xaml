@@ -9,12 +9,23 @@
       Title="CustomersPage"
       Loaded="Page_Loaded"
       >
-
-    <StackPanel Orientation="Vertical">
-        <Label FontSize="20">Customers</Label>
-        <ListBox x:Name="lsbClients" MinHeight="400"
-                 DisplayMemberPath="Nom"
-                 SelectionChanged="lsbClients_SelectionChanged"
-                 ></ListBox>
-    </StackPanel>
+    <DockPanel>
+        <Menu DockPanel.Dock="top">
+            <MenuItem Header="_File" ></MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="Copy" ></MenuItem>
+                <MenuItem Header="Paste"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Cut"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="View"></MenuItem>
+        </Menu>
+        <StackPanel  Orientation="Vertical">
+            <Label FontSize="20">Customers</Label>
+            <ListBox x:Name="lsbClients" MinHeight="400"
+                     DisplayMemberPath="Nom"
+                     SelectionChanged="lsbClients_SelectionChanged"
+                     ></ListBox>
+        </StackPanel>
+    </DockPanel>
 </Page>
