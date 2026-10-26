@@ -1,0 +1,72 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        Loaded="Window_Loaded">
+    <Grid>
+        <DataGrid x:Name="dtgEquips" AutoGenerateColumns="False" >
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nom" Binding="{Binding Nom}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Descripció" Binding="{Binding Desc}" Width="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="Data" Binding="{Binding DataCreacio}" Width="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="Jugadors" Binding="{Binding Jugadors}" Width="100"></DataGridTextColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <!-- a partir d'aquí és el que hi ha a la cel·la -->
+                            <Grid>
+                                <ListBox ItemsSource="{Binding Jugadors}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="{Binding Cognoms}"></Label>
+                                                <Label>,</Label>
+                                                <Label Content="{Binding Nom}"></Label>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </Grid>
+                            <!-- final de cel·la -->
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <!-- a partir d'aquí és el que hi ha a la cel·la -->
+                            <Grid>
+                                <DataGrid ItemsSource="{Binding Jugadors}"
+                                         AutoGenerateColumns="False"
+                                          >
+                                    <!-- Customitzem les columnes del DataGrid-->
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Dorsal" Binding="{Binding Dorsal }"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Nom" Binding="{Binding Nom }"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Cognoms" Binding="{Binding Cognoms }"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                            <!-- final de cel·la -->
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding UrlLogo}" MaxWidth="100"></Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            
+            </DataGrid.Columns>
+        </DataGrid>
+ 
+    </Grid>
+</Window>
