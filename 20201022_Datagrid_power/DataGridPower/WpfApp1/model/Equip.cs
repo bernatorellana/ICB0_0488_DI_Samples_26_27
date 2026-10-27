@@ -64,7 +64,7 @@ namespace WpfApp1.model
                 e1.Add(new Jugador(3, "Leandro", "Bolmaro", "ESP", "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4683025.png&h=80&w=110&scale=crop", 9));
                 e1.Add(new Jugador(4, "Anthony", "Edwards", "ESP", "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4594268.png&h=80&w=110&scale=crop", 1));
 
-                e1.coach = new Persona(2, "Chris", "Finch", "USA", "https://chorus.stimg.co/22321661/08_1012324552_Finch1216.jpg");
+                e1.coach = new Persona(2, "Chris", "Finch", "USA", "https://images.foxtv.com/static.fox9.com/www.fox9.com/content/uploads/2023/02/764/432/timberwolves-chris-finch.jpg?ve=1&tl=1");
 
                 llistaEquips.Add(e1);
 
@@ -75,7 +75,7 @@ namespace WpfApp1.model
                 e2.Add(new Jugador(30, "Collins", "Zach", "ESP", "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4066650.png&h=80&w=110&scale=crop", 33));
                 e2.Add(new Jugador(40, "Drew", "Eubanks", "ESP", "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3914285.png&h=80&w=110&scale=crop", 14));
 
-                e2.coach = new Persona(2, "Eubanks", "Drew", "USA", "https://www.nba.com/resources/static/team/v2/spurs/Schad/img/Spurs/Coaches/Pop.png");
+                e2.coach = new Persona(2, "Johnson", "Mitch ", "USA", "https://i0.wp.com/sanantonioreport.org/wp-content/uploads/2025/05/GettyImages-2209676032-scaled.jpg?resize=1536%2C1024&ssl=1");
 
                 llistaEquips.Add(e2);
 

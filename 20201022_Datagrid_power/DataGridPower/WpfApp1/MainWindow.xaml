@@ -8,11 +8,32 @@
         Title="MainWindow" Height="450" Width="800"
         Loaded="Window_Loaded">
     <Grid>
-        <DataGrid x:Name="dtgEquips" AutoGenerateColumns="False" >
+        <DataGrid   HorizontalAlignment="Left"  
+                    VerticalContentAlignment="Center" 
+                    x:Name="dtgEquips" AutoGenerateColumns="False"
+                    GridLinesVisibility="None"
+                    AlternatingRowBackground="#CCCCCC">
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <DataGrid  HorizontalAlignment="Left" ItemsSource="{Binding Jugadors}"                                       
+              AutoGenerateColumns="False"
+              >
+                            <!-- Customitzem les columnes del DataGrid-->
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Dorsal" Binding="{Binding Dorsal }"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Nom" Binding="{Binding Nom }"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Cognoms" Binding="{Binding Cognoms }"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+            
             <DataGrid.Columns>
 
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Nom" Binding="{Binding Nom}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" ></DataGridTextColumn>
                 <DataGridTextColumn Header="Descripció" Binding="{Binding Desc}" Width="100"></DataGridTextColumn>
                 <DataGridTextColumn Header="Data" Binding="{Binding DataCreacio}" Width="100"></DataGridTextColumn>
                 <DataGridTextColumn Header="Jugadors" Binding="{Binding Jugadors}" Width="100"></DataGridTextColumn>
@@ -42,8 +63,8 @@
                         <DataTemplate>
                             <!-- a partir d'aquí és el que hi ha a la cel·la -->
                             <Grid>
-                                <DataGrid ItemsSource="{Binding Jugadors}"
-                                         AutoGenerateColumns="False"
+                                <DataGrid  HorizontalAlignment="Left" ItemsSource="{Binding Jugadors}"                                       
+                                          AutoGenerateColumns="False"
                                           >
                                     <!-- Customitzem les columnes del DataGrid-->
                                     <DataGrid.Columns>
@@ -64,7 +85,36 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-            
+                <DataGridTextColumn Header="Conferència" Binding="{Binding Conf}" ></DataGridTextColumn>
+
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Image  Width="100"
+                                    Stretch="UniformToFill"
+                                    Source="{Binding Coach.UrlFoto}"                                         
+                                       Grid.Row="0"        
+                                       ></Image>
+                                <TextBlock 
+                                       HorizontalAlignment="Center"
+                                       Grid.Row="1">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="Coach.Nom"></Binding>
+                                            <Binding Path="Coach.Cognoms"></Binding>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
  
