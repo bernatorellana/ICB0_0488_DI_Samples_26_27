@@ -22,6 +22,7 @@ namespace AppBuscamines
     {
 
         int[,] tauler;
+        Image[,] tapes;
 
         const int MINA = -1;
 
@@ -40,11 +41,15 @@ namespace AppBuscamines
             inicialitzarTauler();
             //pintaremMinesINumeros();
             //posaremElsBotons();
+
+
+
         }
 
         private void inicialitzarTauler()
         {
             tauler = new int[MIDA_TAULER, MIDA_TAULER];
+            tapes = new Image[MIDA_TAULER, MIDA_TAULER];
 
             for (int c = 0; c < MIDA_TAULER; c++)
             {
@@ -74,22 +79,134 @@ namespace AppBuscamines
             {
                 for (int c = 0; c < MIDA_TAULER; c++)
                 {
+
+
+                    /*
+                    <Border BorderThickness="1" BorderBrush="Black" >
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Text="9" FontFamily="./fonts/#Minesweeper" ></TextBlock>
+                    </Border>
+
+                    */
+                    Border b = new Border();
+                    b.BorderThickness = new Thickness(0.5);
+                    b.BorderBrush = new SolidColorBrush(Colors.Black);
+                    b.Background = new SolidColorBrush(Colors.LightGray);
                     TextBlock t = new TextBlock();
+                    t.HorizontalAlignment = HorizontalAlignment.Center;
+                    t.VerticalAlignment = VerticalAlignment.Center;
+                    b.Child = t;
+
+                    // Creem la imatge que tapa la mina
+                    Image tapa = new Image();
+                    tapa.Source = new BitmapImage(new Uri("pack://application:,,,/AppBuscamines;component/images/button.png"));
+
+                    tapa.Tag = new Point(f, c);
+
+                    tapes[f, c] = tapa; // Permet accedir a una tapa concreta a partir de les seves coordenades
+
+
+                    tapa.MouseLeftButtonDown += Tapa_MouseLeftButtonDown;
+
+                    // The font resource reference includes the base URI reference (application directory level),
+                    // and a relative URI reference.
+
+                    t.FontFamily = new FontFamily(new Uri("pack://application:,,,/"), "./fonts/#Minesweeper");
+
+                    Color[] colors = { Colors.Blue, 
+                                        Colors.Green, 
+                                        Colors.Orange, 
+                                        Colors.OrangeRed,
+                                        Colors.DarkOrange,
+                                        Colors.Black, Colors.Black,Colors.Black
+                    };
+
                     if (tauler[f, c] == MINA)
                     {
-                        
-                        t.Text = "M";
+
+                        //t.Text = "M";
+                        Image mine = new Image();
+                       
+                        mine.Source = new BitmapImage(new Uri("pack://application:,,,/AppBuscamines;component/images/mine.png"));
+                        b.Child = mine;
+                        b.Background = new SolidColorBrush(Colors.Red);
                         
                     } else
                     {
-                        t.Text = ""+tauler[f, c];
+                        int numero = tauler[f, c];
+                        if (numero > 0) { 
+                            t.Text = ""+numero;
+
+                            t.Foreground = new SolidColorBrush(colors[numero-1]);
+
+                            t.FontSize = 30;
+                        } 
                     }
-                    grid.Children.Add(t);
-                    Grid.SetColumn(t, c);
-                    Grid.SetRow(t, f);
+
+                    // Afegim el text o la mina al grid
+                    grid.Children.Add(b);
+                    Grid.SetColumn(b, c);
+                    Grid.SetRow(b, f);
+
+                    // Afegir la tapa
+                    grid.Children.Add(tapa);
+                    Grid.SetColumn(tapa, c);
+                    Grid.SetRow(tapa, f);
+
                 }
             }
+
          }
+
+        private void Tapa_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
+            Image tapa = (Image)sender;
+            
+            Point p = (Point) tapa.Tag;
+            //MessageBox.Show("He clicat a la fila " + p.X + " columna " + p.Y);
+            
+            if (tauler[(int)p.X,(int)p.Y]==MINA)
+            {
+                MessageBox.Show("You loose");
+            } else if (tauler[(int)p.X, (int)p.Y] == 0) // Casella buida, he de propagar
+            {
+                propaga((int)p.X, (int)p.Y);
+            }
+        }
+
+        private void propaga(int f, int c)
+        {
+            // Verificar si la cel·la ja està destapada, si és així no cal fer res
+            if (tapes[f, c].Visibility == Visibility.Collapsed) return;
+
+            // Si la cel·la està tapada, la destapem
+            tapes[f, c].Visibility = Visibility.Collapsed;
+
+
+            // Si la cel·la conté un número >0 ja hem acabat
+            if (tauler[f, c] > 0) return;
+
+            // Si la cel·la conté un zero, llavors propaguem a totes les seves 
+            // veines
+            int[,] mov = { 
+                // T     D    L      R
+                {-1,0},{1,0},{0,-1},{0,1},
+                // TL    TR     BL      BR
+                {-1,-1},{-1,1},{1,-1},{1,1},
+            };
+            for (int i = 0; i < 8; i++)
+            {
+                int fn = f + mov[i,0];
+                int cn = c + mov[i,1];
+                if(fn>=0 && cn>=0 && fn<MIDA_TAULER && cn<MIDA_TAULER)
+                    propaga(fn, cn);
+            }
+
+
+        }
+
 
         private void updateComptadorMina(int f, int c)
         {

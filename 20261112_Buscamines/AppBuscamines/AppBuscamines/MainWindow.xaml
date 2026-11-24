@@ -7,7 +7,21 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         Loaded="Window_Loaded">
-    <Grid x:Name="grid">
- 
+    <Grid x:Name="grid" Background="LightGray">
+
+        
+        
+        <!--<Border BorderThickness="4,4,0,0" BorderBrush="White" Width="60" Height="60" >
+            <Border BorderThickness="0,0,4,4" BorderBrush="Gray" Background="LightGray" >
+                <TextBlock Text="A"></TextBlock>
+            </Border>
+        </Border>-->
+        
+
+        <!--<Border BorderThickness="1" BorderBrush="Black" >
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="9" FontFamily="./fonts/#Minesweeper" ></TextBlock>
+        </Border>-->
     </Grid>
 </Window>
